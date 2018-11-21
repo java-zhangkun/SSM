@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.oracle.mapper.FunsMapper" >
+  <resultMap id="BaseResultMap" type="com.oracle.pojo.Funs" >
+    <id column="fun_id" property="funId" jdbcType="INTEGER" />
+    <result column="fun_name" property="funName" jdbcType="VARCHAR" />
+    <result column="fun_url" property="funUrl" jdbcType="VARCHAR" />
+    <result column="fun_pid" property="funPid" jdbcType="INTEGER" />
+    <result column="fun_target" property="funTarget" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fun_id, fun_name, fun_url, fun_pid, fun_target
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from funs
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from funs
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.oracle.pojo.Funs" >
+    insert into funs (fun_id, fun_name, fun_url, 
+      fun_pid, fun_target)
+    values (#{funId,jdbcType=INTEGER}, #{funName,jdbcType=VARCHAR}, #{funUrl,jdbcType=VARCHAR}, 
+      #{funPid,jdbcType=INTEGER}, #{funTarget,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.oracle.pojo.Funs" >
+    insert into funs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="funId != null" >
+        fun_id,
+      </if>
+      <if test="funName != null" >
+        fun_name,
+      </if>
+      <if test="funUrl != null" >
+        fun_url,
+      </if>
+      <if test="funPid != null" >
+        fun_pid,
+      </if>
+      <if test="funTarget != null" >
+        fun_target,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="funId != null" >
+        #{funId,jdbcType=INTEGER},
+      </if>
+      <if test="funName != null" >
+        #{funName,jdbcType=VARCHAR},
+      </if>
+      <if test="funUrl != null" >
+        #{funUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="funPid != null" >
+        #{funPid,jdbcType=INTEGER},
+      </if>
+      <if test="funTarget != null" >
+        #{funTarget,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.oracle.pojo.Funs" >
+    update funs
+    <set >
+      <if test="funName != null" >
+        fun_name = #{funName,jdbcType=VARCHAR},
+      </if>
+      <if test="funUrl != null" >
+        fun_url = #{funUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="funPid != null" >
+        fun_pid = #{funPid,jdbcType=INTEGER},
+      </if>
+      <if test="funTarget != null" >
+        fun_target = #{funTarget,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.oracle.pojo.Funs" >
+    update funs
+    set fun_name = #{funName,jdbcType=VARCHAR},
+      fun_url = #{funUrl,jdbcType=VARCHAR},
+      fun_pid = #{funPid,jdbcType=INTEGER},
+      fun_target = #{funTarget,jdbcType=VARCHAR}
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </update>
+</mapper>
